@@ -19,16 +19,17 @@ from django.urls import path
 from recipebox.views import *
 from recipebox.models import Author, Recipe
 
-admin.site.register(Author)
-admin.site.register(Recipe)
+# admin.site.register(Author)
+# admin.site.register(Recipe)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='homepage'),
     path('author/', author, name='id'),
     path('recipe/', recipe, name='id'),
-    path('addrecipe', addrecipe),
-    path('register', register, name='register'),
+    path('addrecipe/', addrecipe),
+    path('register/', register, name='register'),
     path('login/', login_view, name='login_view'),
-    path('logout', logout_user, name='logout')
+    path('logout', logout_user, name='logout'),
+    path('editrecipe/<int:id>/', editrecipe, name='editrecipe'),
 ]

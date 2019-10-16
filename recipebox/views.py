@@ -8,6 +8,7 @@ from recipebox.forms import *
 
 
 def index(request, *args, **kwargs):
+    logged_in_user = request.user
     page = 'index.html'
 
     recipes = Recipe.objects.all()
@@ -94,6 +95,19 @@ def recipe(request, *args, **kwargs):
     uid = int(request.GET.get('id'))
     recipe = Recipe.objects.all().filter(id=uid)
     return render(request, page, {'recipes': recipe, 'author': recipe[0].author})
+
+
+def editrecipe(request, id):
+    if request.method == 'GET':
+        html = 'editrecipe.html'
+        form = EditRecipeForm()
+        recipe = Recipe.objects.get(id=id)
+        return render(request, html, {'recipe': recipe})
+    else:
+        selected_recipe = Recipe.objects.get(id=id)
+        finished = EditRecipeForm(request.POST, instance=selected_recipe)
+        finished.save()
+
 
 
 @login_required()

@@ -1,11 +1,17 @@
-<p><strong>Index</strong> | <a href="/login">Login</a> | <a href="/addrecipe">Add Recipe</a> | <a href="/register">Add User</a> | <a href="/logout">Logout</a></p>
+<p><strong>Index</strong> | <a href="/login">Login</a> | <a href="/addrecipe">Add Recipe</a> | <a href="/register">Add
+        User</a> | <a href="/logout">Logout</a></p>
 <h1>Home</h1>
 
 <div>
-{% for recipe in recipes %}
-    <h3><a href="/recipe/?id={{ recipe.id }}">{{recipe.title}}</a></h3>
+    {% for recipe in recipes %}
+    <h3><a href="/recipe/?id={{ recipe.id }}">{{recipe.title}}</a>--
+        {% if request.user %}
+        <button>FAVE</button>
+        {% endif %}
+        --<a href="/editrecipe/{{ recipe.id }}">Edit</a></h3>
     <p>{{recipe.description}} (time required: {{recipe.time_rq}} min.)</p>
     <a href="/author/?id={{ recipe.author.id }}">Author: {{recipe.author}}</a>
-{% endfor %}
+
+    {% endfor %}
     <p>The logged in user is: {{ request.user }}</p>
 </div>
